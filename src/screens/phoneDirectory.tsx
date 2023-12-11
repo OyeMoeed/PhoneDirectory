@@ -1,7 +1,7 @@
-// PhoneDirectory.tsx
 import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, Button, FlatList} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
 interface Contact {
   id: string;
@@ -13,6 +13,7 @@ const PhoneDirectory: React.FC = () => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [contacts, setContacts] = useState<Contact[]>([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     loadContacts();
@@ -59,6 +60,10 @@ const PhoneDirectory: React.FC = () => {
     </View>
   );
 
+  const navigateToContacts = () => {
+    navigation.navigate('Contacts', {contacts});
+  };
+
   return (
     <View>
       <Text>Add Contact</Text>
@@ -80,6 +85,8 @@ const PhoneDirectory: React.FC = () => {
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
+
+      <Button title="Show All Contacts" onPress={navigateToContacts} />
     </View>
   );
 };
