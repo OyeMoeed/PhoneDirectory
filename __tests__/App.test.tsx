@@ -1,17 +1,12 @@
-/**
- * @format
- */
-
 import 'react-native';
 import React from 'react';
 import App from '../App';
 
-// Note: import explicitly to use the types shipped with jest.
-import {it} from '@jest/globals';
-
-// Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
+import PhoneDirectory from '../src/screens/phoneDirectory';
 
-it('renders correctly', () => {
-  renderer.create(<App />);
+test('renders correctly', () => {
+  jest.runAllTimers();
+  const tree = renderer.create(<PhoneDirectory />).toJSON();
+  expect(tree).toMatchSnapshot();
 });
